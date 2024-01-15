@@ -20,6 +20,10 @@ html, body {
   margin: 0 10px;
 }
 
+.category-title {
+  font-weight: 900;
+}
+
 .filter-list {
   display: flex;
   justify-content: flex-end;
@@ -44,7 +48,7 @@ html, body {
 
 .work-widget {
   width: 380px;
-  height: 250px;
+  height: 260px;
   margin: 10px;
   border: 1px solid #000;
   border-radius: 10px;
@@ -92,6 +96,20 @@ html, body {
 
 .label {
   color: #08F;
+}
+
+.tag-list {
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+.tag {
+  border: 1px solid #08F;
+  border-radius: 5px;
+  margin-right: 5px;
+  padding: 0 10px;
+  background-color: #08F;
+  color: #FFF;
 }
 
 img {

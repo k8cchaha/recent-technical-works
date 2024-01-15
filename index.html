@@ -14,7 +14,7 @@
       </div>
       <div class="aside-info">
         <a class="linkedin" href="https:/www.linkedin.com/in/alex-wang-6b589088" target="_blank">
-          <img src="./img/linkedin.png" alt="linkedin" height="40px">
+          <img src="./img/linkedin.png" alt="linkedin" height="30px">
         </a>
         <span class="divider">|</span>
         <a class="resume" href="https://www.yourator.co/r/9ebe8b9b-0114-4187-afc0-87cdf6852442" target="_blank">
@@ -23,6 +23,7 @@
       </div>
     </div>
     <div class="filter-list">
+      <span class="category-title">Work Category : </span>
       <input
           type="checkbox"
           id="filter-all"
@@ -50,15 +51,20 @@
             <span class="label">Description: </span><br>
             <span>{{ work.description }}</span>
           </p>
-          <div class="work-info">
-            <time>{{ work.devTime }}</time>
-            <div class="work-link">
-              <a :href="work.previewUrl" target="_blank" v-if="work.previewUrl">
-                <img src="./img/preview.png" height=30 alt="">
-              </a>
-              <a :href="work.gitHubUrl" target="_blank">
-                <img src="./img/github.png" height=30 alt="github link">
-              </a>
+          <div>
+            <div class="tag-list">
+              <span v-for="tag in work.tags" :key="tag" class="tag">{{ tag }}</span>
+            </div>
+            <div class="work-info">
+              <time>{{ work.devTime }}</time>
+              <div class="work-link">
+                <a :href="work.previewUrl" target="_blank" v-if="work.previewUrl">
+                  <img src="./img/preview.png" height=30 alt="">
+                </a>
+                <a :href="work.gitHubUrl" target="_blank">
+                  <img src="./img/github.png" height=30 alt="github link">
+                </a>
+              </div>
             </div>
           </div>
         </div>
