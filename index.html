@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recent Technical Works</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <div class="title">
+        <h2>Alex's Recent Technical Works</h2>
+      </div>
+      <div class="aside-info">
+        <a class="linkedin" href="https:/www.linkedin.com/in/alex-wang-6b589088" target="_blank">
+          <img src="./img/linkedin.png" alt="linkedin" height="40px">
+        </a>
+        <span class="divider">|</span>
+        <a class="resume" href="https://www.yourator.co/r/9ebe8b9b-0114-4187-afc0-87cdf6852442" target="_blank">
+          中文履歷
+        </a>
+      </div>
+    </div>
+    <div class="filter-list">
+      <input
+          type="checkbox"
+          id="filter-all"
+          :checked="selectAll"
+          @click="checkAll"
+      />
+      <label for="filter-all">All</label>
+      <template v-for="filter in filterList" :key="filter.key">
+        <input
+          type="checkbox"
+          :value="filter.key"
+          :id="filter.key"
+          v-model="selectedFilter"
+        />
+        <label :for="filter.key">{{ filter.name }}</label>
+      </template>
+    </div>
+    <main class="container">
+      <article v-for="work in displayWorks" :key="work.title" class="work-widget">
+        <div class="work-title">
+          <h3>{{ work.title }}</h3>
+        </div>
+        <div class="content">
+          <p> 
+            <span class="label">Description: </span><br>
+            <span>{{ work.description }}</span>
+          </p>
+          <div class="work-info">
+            <time>{{ work.devTime }}</time>
+            <div class="work-link">
+              <a :href="work.previewUrl" target="_blank" v-if="work.previewUrl">
+                <img src="./img/preview.png" height=30 alt="">
+              </a>
+              <a :href="work.gitHubUrl" target="_blank">
+                <img src="./img/github.png" height=30 alt="github link">
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+  </div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

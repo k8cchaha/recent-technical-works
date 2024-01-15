@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <form id="myForm" class="kyc-pop-form">
+        <div style="display: none">
+          帳號：<input type="text" name="myName" class=”kyc-input” value="<?= data.name ?>" readonly="readonly">
+          <br>
+          驗證類型：<input type="text" name="type" class=”kyc-input” value="<?= data.type ?>" readonly="readonly">
+          <br>
+          成功訊息：<input type="text" name="msgSuccess" class=”kyc-input” value="<?= data.msgSuccess ?>" readonly="readonly">
+        </div>
+        <label for="upload" class="custom-file-upload">
+          <?= data.msgSelectFile ?>
+        </label>
+        <input type="file" name="myFile" id="upload" accept="image/*">
+        <br>
+        <img src="" alt="" style="margin:10px 0">
+        <br>
+        <div id="error" style="display: none;"><?= data.msgError ?></div>
+        <input type="submit" value="<?= data.msgUpload ?>" disabled
+              onclick="this.value='<?= data.msgUploading ?>';
+                        google.script.run.withSuccessHandler(fileUploaded)
+                        .uploadFiles(this.parentNode);
+                        return false;" class="byc-btn">
+    </form>
+
+    <div id="output"></div>
+
+    <script>
+        var input = document.getElementById('upload')
+        var demo = document.getElementsByTagName('img')[0]
+        var error = document.getElementById('error');
+        var submit = document.getElementsByClassName("byc-btn")[0]
+        var reader = new FileReader()
+        var sizeValid = false
+        input.addEventListener('change', updateImg)
+
+        function updateImg(e) {
+          var upImg = e.target.files || e.dataTransfer.files
+          var imgSize = upImg[0].size
+          
+          if (imgSize/1024 > 3072) {
+            sizeValid = false
+            error.style.display = ''
+            submit.setAttribute('disabled', '');
+          } else {
+            if (!sizeValid) {
+              error.style.display = 'none';
+              submit.removeAttribute('disabled');
+            }
+            sizeValid = true
+          }
+          reader.readAsDataURL(upImg[0])
+        }
+
+        function fileUploaded(status) {
+            document.getElementById('myForm').style.display = 'none';
+            document.getElementById('output').innerHTML = status;
+            document.getElementById('output').classList.add("kyc-pop-done");
+            window.parent.parent.parent.postMessage('uploadSuccess', '*')
+        }
+
+        reader.onload = function(e) {
+          demo.src = e.target.result
+        }
+    </script>
+
+    <style>
+    .kyc-pop-form {
+      background: linear-gradient(to bottom, #f7f7f7 0%, #c0c0c0 100%);
+      padding: 25px;
+      box-shadow: 0 10px 25px rgba(20,20,20,0.45);
+      font-size: 14px;
+      border-radius: 10px;
+      border: 1px solid #898989;
+      height: 292px;
+    }
+    .kyc-input {
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: 1px solid #c1c1c1;
+    }
+    .byc-btn {
+      border-radius: 5px;
+      border: none;
+      background: #437ebf;
+      box-shadow: 2px 2px 0px #0a56a7;
+      padding: 10px 15px;
+      text-align: center;
+      color: white;
+    }
+
+    .custom-file-upload {
+      border: 1px solid #7f7f7f;
+      border-radius: 5px;
+      display: inline-block;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .custom-file-upload:hover,.custom-file-upload:active {
+      background: #7f7f7f;
+      color: #FFF;
+    }
+    input.byc-btn {
+      border-radius: 5px;
+      border: none;
+      background: #437ebf;
+      box-shadow: 2px 2px 0px #0a56a7;
+      padding: 10px 15px;
+      text-align: center;
+      color: white;
+      transition: all .15s;
+    }
+    input.byc-btn:hover, input.byc-btn:active {
+      background: #1f61a9;
+      box-shadow: inset 3px 3px 5px #0a417d;
+    }
+    input[type="file"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+    img {
+      max-width: 440px;
+      max-height: 180px;
+      margin: 10px 0;
+    }
+    @media (max-width: 390px){
+      img { 
+        max-width: 240px;
+        max-height: 180px;
+        margin: 10px 0;
+      }
+    }
+    body {
+      background-color: transparent;
+    }
+    .kyc-pop-done {
+      background: linear-gradient(to bottom, #f7f7f7 0%, #c0c0c0 100%);
+      padding: 25px;
+      box-shadow: 0 10px 35px rgba(20,20,20,0.45);
+      font-size: 14px;
+      border-radius: 10px;
+      border: 1px solid #898989;
+      text-align: center;
+      min-height:292px;
+      line-height:290px;
+    }
+    #error {
+      color: red;
+      margin: -5px 0 5px 5px;
+    }
+    input:disabled {
+      background: gray;
+      box-shadow: 0 0px 0px gray;
+    }
+    input:disabled:hover {
+      cursor: not-allowed;
+      background: gray;
+      box-shadow: 0 0px 0px gray;
+    }
+    </style>
+  </body>
+</html>
