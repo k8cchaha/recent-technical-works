@@ -5,7 +5,7 @@ export const works = [
     devTime: '2024/1/15',
     description: 'Compiling recent technical development projects into a website for easy review.',
     tags: ['vue'],
-    previewUrl: 'https://github.com/k8cchaha/recent-technical-works',
+    previewUrl: 'https://k8cchaha.github.io/recent-technical-works/',
     gitHubUrl: 'https://github.com/k8cchaha/recent-technical-works',
   },
   {
