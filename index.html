@@ -20,10 +20,10 @@
         <a href="https:/www.linkedin.com/in/alex-wang-6b589088" target="_blank">
           <img src="./img/linkedin.png" alt="linkedin" height="30px">
         </a>
-        <span class="divider">|</span>
+        <!-- <span class="divider">|</span>
         <a class="resume" href="https://www.yourator.co/r/9ebe8b9b-0114-4187-afc0-87cdf6852442" target="_blank">
           中文履歷
-        </a>
+        </a> -->
       </div>
     </div>
     <div class="filter-list">
@@ -56,9 +56,15 @@
             <span>{{ work.description }}</span>
           </p>
           <div>
-            <div class="tag-list">
-              <span v-for="tag in work.tags" :key="tag" class="tag">{{ tag }}</span>
+            <div class="work-type">
+              <div class="tag-list">
+                <span v-for="tag in work.tags" :key="tag" class="tag">{{ tag }}</span>
+              </div>
+              <div class="category">
+                <span>{{ categoryMapping(work.category) }}</span>
+              </div>
             </div>
+            
             <div class="work-info">
               <time>{{ work.devTime }}</time>
               <div class="work-link">
