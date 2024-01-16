@@ -48,5 +48,10 @@ const app = createApp({
         });
       }
     },
+    categoryMapping(categoryKey) {
+      return this.filterList.filter((item)=>{
+        return item.key === categoryKey
+      })[0].name;
+    }
   }
 }).mount('#app')
